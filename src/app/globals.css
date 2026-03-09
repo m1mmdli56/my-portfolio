@@ -1,44 +1,43 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+@theme {
+  /* Fontlar */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-border: var(--border);
-  --color-card: var(--card);
+  /* Rəng dəyişənləri */
+  --color-background: oklch(0.12 0.02 260);
+  --color-foreground: oklch(0.98 0.01 260);
+
+  --color-card: oklch(0.16 0.03 260 / 0.8);
+  --color-card-foreground: oklch(0.98 0 0);
+
+  --color-primary: oklch(0.65 0.25 45);
+  --color-primary-foreground: oklch(1 0 0);
+
+  --color-border: oklch(1 0 0 / 0.1);
+
+  --radius-xl: 0.75rem;
+
+  /* Animasiya tərifi */
+  --animate-fire-move: fire-move 4s linear infinite;
+
+  @keyframes fire-move {
+    to {
+      background-position: 200% center;
+    }
+  }
 }
 
-:root {
-  /* Tünd qara fon */
-  --background: oklch(0.12 0.02 260);
-  --foreground: oklch(0.98 0.01 260);
-
-  /* Kartlar üçün bir az daha açıq qara */
-  --card: oklch(0.16 0.03 260 / 0.8);
-  --card-foreground: oklch(0.98 0 0);
-
-  /* Narıncı-Qırmızı keçidi (Primary rəng) */
-  --primary: oklch(0.65 0.25 45);
-  /* Canlı Narıncı */
-  --primary-foreground: oklch(1 0 0);
-
-  --border: oklch(1 0 0 / 0.1);
-  --radius: 0.75rem;
-}
-
+/* Baza stilləri */
 @layer base {
   * {
-    border-color: var(--border);
+    @apply border-border;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
-    /* Arxada çox zəif qırmızımtıl parıltı */
+    /* Arxadakı incə parıltı effekti */
     background-image:
       radial-gradient(at 0% 0%, oklch(0.6 0.3 30 / 0.08) 0px, transparent 50%),
       radial-gradient(at 100% 100%, oklch(0.5 0.3 10 / 0.05) 0px, transparent 50%);
@@ -46,17 +45,11 @@
   }
 }
 
-/* Odlu Gradient Yazı Effekti */
+/* Odlu Gradient Yazı Effekti (Klass olaraq) */
 .animate-fire-gradient {
   background: linear-gradient(to right, #ff4d4d, #f9cb28, #ff4d4d);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: fire-move 4s linear infinite;
-}
-
-@keyframes fire-move {
-  to {
-    background-position: 200% center;
-  }
+  animation: var(--animate-fire-move);
 }
